@@ -2,17 +2,13 @@
 let generateBtn = document.querySelector("#generate");
 
 // Write password to the #password input
-
-
 function writePassword() {
   let password = generatePassword();
   let passwordText = document.getElementById("password");
   let pwdLength = prompt("How long do you want your Password");
   passwordText.value = "Your Secure Password";
 
-  console.log(typeof pwdLength)   
-
-  if( typeof pwdLength === "number" || pwdLength < 8 || pwdLength > 128){  
+  if( isNaN(pwdLength) || pwdLength < 8 || pwdLength > 128){   //if the value its outside or the range 8-128 and is not a number we display a msg
     alert("Password Must be at least 8 Char long and no longer than 128 Char")
   } else {
       let lowerCase = confirm("Would you like your password to include lowercase?")
@@ -20,13 +16,13 @@ function writePassword() {
       let numeric = confirm("Would you like your password to include Numbers?")
       let specialChar = confirm("Would you like your passwordd to include special characters?")
       if(lowerCase||upperCase||numeric||specialChar){  
-        password = generatePassword(pwdLength,lowerCase,upperCase,numeric,specialChar)  //if at least one is true, we call the function to generate the password
+        password = generatePassword(pwdLength,lowerCase,upperCase,numeric,specialChar)
+        passwordText.value += ` is ${password}`;  //if at least one is true, we call the function to generate the password
       } else {
-        alert("Please Select at least one") //if not we will show an alert were it says that you should at least select one of the options
+        passwordText.value = "Please select at least one of the options" //if not we will show an alert were it says that you should at least select one of the options
       }
   }
-
-  passwordText.value += ` is ${password}`;
+  
 }
 
 // Add event listener to generate button
